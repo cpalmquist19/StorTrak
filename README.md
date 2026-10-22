@@ -21,8 +21,9 @@ make up
 The first run builds the app image (CommandBox + Lucee 5.4) and initializes MySQL; allow a
 couple of minutes. `make up` returns once both containers report healthy.
 
-Open <http://127.0.0.1:8080/>. The page should show **DB OK**, the MySQL server time, the
-number of delinquent tenants and lien rows, and every table in the schema with its row count.
+Open <http://127.0.0.1:8080/>. The page should show **DB OK**.
+
+Default login: `admin` / `stortrak1`
 
 A fresh database volume loads `db/schema.sql` and then `db/seed.sql` automatically.
 
@@ -34,6 +35,7 @@ A fresh database volume loads `db/schema.sql` and then `db/seed.sql` automatical
 | `make down`  | Stop containers (database data is kept) |
 | `make seed`  | Regenerate `db/seed.sql` (deterministic; see [seed/README.md](seed/README.md)) |
 | `make reset` | Regenerate the seed, drop and recreate the database, load schema + seed |
+| `make check` | Print table row counts and a seed summary straight from the database |
 | `make logs`  | Follow container logs |
 
 ## Services

@@ -1,6 +1,6 @@
 COMPOSE := docker compose
 
-.PHONY: up down seed reset logs
+.PHONY: up down seed reset check logs
 
 ## up: build and start Lucee + MySQL, wait until both are healthy
 up:
@@ -27,6 +27,11 @@ reset: seed
 	$(DB_TOOL) load < db/schema.sql
 	$(DB_TOOL) load < db/seed.sql
 	@echo Database reset: schema and seed loaded.
+
+## check: print table row counts and the seed summary from the database
+check:
+	$(COMPOSE) up -d --wait db
+	$(DB_TOOL) query < db/check.sql
 
 ## logs: follow logs from all services
 logs:
