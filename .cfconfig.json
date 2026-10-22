@@ -1,0 +1,21 @@
+{
+    "adminPassword": "${cfconfig_adminPassword:stortrak-admin}",
+    "requestTimeout": "0,0,0,50",
+    "timeZone": "America/New_York",
+    "datasources": {
+        "stortrak": {
+            "dbdriver": "MySQL",
+            "class": "com.mysql.cj.jdbc.Driver",
+            "host": "${DB_HOST:db}",
+            "port": "${DB_PORT:3306}",
+            "database": "${DB_NAME:stortrak}",
+            "username": "${DB_USER:stortrak}",
+            "password": "${DB_PASSWORD:stortrak}",
+            "custom": "useUnicode=true&characterEncoding=UTF-8&serverTimezone=America/New_York&useSSL=false&allowPublicKeyRetrieval=true",
+            "blob": "true",
+            "clob": "true",
+            "connectionLimit": "50",
+            "validate": "false"
+        }
+    }
+}

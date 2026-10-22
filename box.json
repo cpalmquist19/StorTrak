@@ -1,0 +1,12 @@
+{
+    "name": "stortrak",
+    "slug": "stortrak",
+    "version": "0.1.0",
+    "private": true,
+    "shortDescription": "Piedmont Stor-All rental and billing system (intentionally legacy benchmark app)",
+    "type": "mvc",
+    "dependencies": {},
+    "devDependencies": {},
+    "installPaths": {},
+    "scripts": {}
+}

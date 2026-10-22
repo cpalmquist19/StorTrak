@@ -1,0 +1,20 @@
+{
+    "name": "stortrak",
+    "app": {
+        "cfengine": "lucee@5.4.8+2"
+    },
+    "web": {
+        "host": "0.0.0.0",
+        "webroot": "./webroot",
+        "http": {
+            "port": 8080
+        },
+        "rewrites": {
+            "enable": false
+        }
+    },
+    "cfconfig": {
+        "file": ".cfconfig.json"
+    },
+    "openBrowser": false
+}

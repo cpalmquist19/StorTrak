@@ -1,0 +1,4 @@
+.env
+/WEB-INF/
+/webroot/WEB-INF/
+*.log
