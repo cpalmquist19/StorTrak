@@ -36,6 +36,8 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
       - ./db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ./docker/db/stortrak-db.sh:/usr/local/bin/stortrak-db:ro
     ports:
       - "127.0.0.1:${MYSQL_HOST_PORT:-3307}:3306"
     healthcheck:
@@ -44,6 +46,16 @@ services:
       timeout: 5s
       retries: 30
       start_period: 20s
+
+  # Seed-data generator; not started by `up`. Run with `make seed`.
+  seed:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: docker/seed/Dockerfile
+    volumes:
+      - ./seed:/app/seed:ro
+      - ./db:/out
 
 volumes:
   mysql-data:

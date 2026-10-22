@@ -2,3 +2,5 @@
 /WEB-INF/
 /webroot/WEB-INF/
 *.log
+/.venv/
+__pycache__/

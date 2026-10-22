@@ -1,6 +1,6 @@
 COMPOSE := docker compose
 
-.PHONY: up down reset logs
+.PHONY: up down seed reset logs
 
 ## up: build and start Lucee + MySQL, wait until both are healthy
 up:
@@ -10,17 +10,23 @@ up:
 down:
 	$(COMPOSE) down
 
-# Run a shell command in the db container. The root password and database
-# name come from the container's own environment (see docker-compose.yml),
-# so they are not duplicated here. MYSQL_PWD avoids the password-on-CLI warning.
-DB_SH := $(COMPOSE) exec -T db sh -c
+# Helper on the db container's PATH (docker/db/stortrak-db.sh). It reads the root
+# password and database name from the container's environment and keeps shell
+# quoting and absolute paths out of these recipes, so they run unchanged under sh,
+# cmd.exe, and Git Bash (which would rewrite a "/path" argument into a Windows path).
+DB_TOOL := $(COMPOSE) exec -T db stortrak-db
 
-## reset: drop and recreate the database, then load db/schema.sql
-reset:
+## seed: regenerate db/seed.sql (deterministic; see seed/README.md)
+seed:
+	$(COMPOSE) run --rm --build seed
+
+## reset: regenerate the seed, drop and recreate the database, load schema + seed
+reset: seed
 	$(COMPOSE) up -d --wait db
-	$(DB_SH) 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysql -uroot -e "DROP DATABASE IF EXISTS $$MYSQL_DATABASE; CREATE DATABASE $$MYSQL_DATABASE;"'
-	$(DB_SH) 'MYSQL_PWD="$$MYSQL_ROOT_PASSWORD" mysql -uroot "$$MYSQL_DATABASE"' < db/schema.sql
-	@echo "Database reset; schema loaded."
+	$(DB_TOOL) recreate
+	$(DB_TOOL) load < db/schema.sql
+	$(DB_TOOL) load < db/seed.sql
+	@echo Database reset: schema and seed loaded.
 
 ## logs: follow logs from all services
 logs:

@@ -21,8 +21,10 @@ make up
 The first run builds the app image (CommandBox + Lucee 5.4) and initializes MySQL; allow a
 couple of minutes. `make up` returns once both containers report healthy.
 
-Open <http://127.0.0.1:8080/>. The page should show **DB OK**, the MySQL server time, and
-every table in the schema with its row count.
+Open <http://127.0.0.1:8080/>. The page should show **DB OK**, the MySQL server time, the
+number of delinquent tenants and lien rows, and every table in the schema with its row count.
+
+A fresh database volume loads `db/schema.sql` and then `db/seed.sql` automatically.
 
 ## Commands
 
@@ -30,7 +32,8 @@ every table in the schema with its row count.
 |--------------|--------------|
 | `make up`    | Build and start Lucee + MySQL, wait for health checks |
 | `make down`  | Stop containers (database data is kept) |
-| `make reset` | Drop and recreate the database, then load `db/schema.sql` |
+| `make seed`  | Regenerate `db/seed.sql` (deterministic; see [seed/README.md](seed/README.md)) |
+| `make reset` | Regenerate the seed, drop and recreate the database, load schema + seed |
 | `make logs`  | Follow container logs |
 
 ## Services
@@ -50,7 +53,8 @@ The `stortrak` datasource is defined in `.cfconfig.json` and loaded by CommandBo
 
 ```
 webroot/          CFML application (legacy — see CLAUDE.md)
-db/               database scripts (schema.sql is legacy — see CLAUDE.md)
+db/               schema.sql (legacy — see CLAUDE.md) and generated seed.sql
+seed/             seed data generator (Python + Faker)
 docker/           container build files
 server.json       CommandBox server config
 .cfconfig.json    Lucee config (datasource, admin password)
