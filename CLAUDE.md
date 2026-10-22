@@ -4,6 +4,12 @@ StorTrak is the internal rental/billing app for **Piedmont Stor-All**, a fiction
 self-storage company with three facilities. Everything here is fictional — never
 reference, name, or imitate real companies, people, or products in code, data, or docs.
 
+## Purpose
+
+StorTrak is an intentionally vulnerable training and benchmark app, in the tradition
+of OWASP WebGoat and DVWA. It is used to evaluate an AI refactoring agent. It runs
+only on localhost and is never deployed.
+
 ## This codebase is intentionally legacy
 
 The bad code is deliberate. StorTrak is a benchmark target for an AI refactoring agent.
