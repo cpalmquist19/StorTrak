@@ -40,6 +40,13 @@ These must be clean, modern, and well-maintained:
 - the seed data generator
 - `Makefile`, `README.md`
 
+**The schema is legacy; the loading is not.** `db/schema.sql` is Gary's 2006 schema
+and keeps its scars: no foreign keys, no lookup tables, no indexes beyond primary keys,
+FLOAT money, plain-text gate codes, MD5 passwords and inconsistent naming. Don't
+"improve" it. The machinery that loads it (the `make reset` recipe, docker init,
+any future seed loader) is infrastructure and stays clean. Keep `CREATE DATABASE`
+and other setup out of `schema.sql`. Gary's file is just his tables.
+
 Pin exact image/engine versions. Keep secrets out of legacy files (the DSN is defined
 in `.cfconfig.json`, not in application code).
 
