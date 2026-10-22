@@ -19,7 +19,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-fsS", "http://localhost:8080/index.cfm"]
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/ping.cfm"]
       interval: 10s
       timeout: 5s
       retries: 30
