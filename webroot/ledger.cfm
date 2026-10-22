@@ -163,6 +163,7 @@
 	<td colspan="4">
 		<a href="pmt.cfm?rid=#qRnt.rid#">Take Payment</a>
 		<cfif qRnt.moveout_dt EQ ""> &nbsp;|&nbsp; <a href="moveout.cfm?rid=#qRnt.rid#">Move Out</a></cfif>
+			&nbsp;|&nbsp; <font size="1"><a href="lien_old.cfm?rid=#qRnt.rid#">lien history</a></font>
 	</td>
 </tr>
 </table>
